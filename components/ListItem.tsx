@@ -25,6 +25,7 @@ const ListItem: React.FC<ListitemProps> = ({
 
   return (
       <button
+      onClick={onClick}
         className="
             relative
             group
