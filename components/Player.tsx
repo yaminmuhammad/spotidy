@@ -18,7 +18,7 @@ const Player = () => {
   return (
     <div
       className="
-    flex
+    fixed
     bottom-0
     bg-black
     w-full
