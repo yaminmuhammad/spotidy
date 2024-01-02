@@ -1,11 +1,15 @@
 "use client"
 
 import { Song } from "@/types"
+import { useState } from "react";
 import { BsPauseFill,  BsPlayFill } from "react-icons/bs";
+import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 
 import LikeButton from "./LikeButton";
 import MediaItem from "./MediaItem";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
+import Slider from "./Slider";
+import usePlayer from "@/hooks/usePlayer";
 
 interface PlayerContentProps {
   song: Song;
@@ -16,7 +20,27 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
   song,
   songUrl
 }) => {
-  const Icon = true ? BsPauseFill : BsPlayFill
+  const player = usePlayer();
+  const [volume, setVolume] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const Icon = true ? BsPauseFill : BsPlayFill;
+  const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
+
+  const onPlayNext = () => {
+    if (player.ids.length === 0) {
+      return;
+    }
+
+    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
+    const nextSong = player.ids[currentIndex + 1];
+
+    if (!nextSong) {
+      return player.setId(player.ids[0]);
+    }
+
+    player.setId(nextSong);
+  }
 
   return (
     <div
@@ -106,7 +130,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
           <Icon size={30} className="text-black" />
         </div>
         <AiFillStepForward
-          onClick={() => { }}
+          onClick={onPlayNext}
           className="
           text-neutral-400
           cursor-pointer
@@ -114,6 +138,30 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
           transition
           "
         />
+      </div>
+
+      <div
+        className="
+      hidden
+      md:flex
+      w-full
+      justify-end
+      pr-2
+      ">
+        <div
+        className="
+        flex
+        items-center
+        gap-x-2
+        w-[120px]
+        ">
+          <VolumeIcon
+            onClick={() => { }}
+            className="cursor-pointer"
+            size={34}
+          />
+          <Slider/>
+        </div>
       </div>
     </div>
   )
