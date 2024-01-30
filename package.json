@@ -23,7 +23,7 @@
     "bufferutil": "^4.0.8",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
-    "next": "13.4.19",
+    "next": "13.5.1",
     "postcss": "8.4.28",
     "query-string": "^8.1.0",
     "react": "18.2.0",
