@@ -43,7 +43,7 @@ const UploadModal = () => {
   }
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-    // upload to supabase
+    // upload file to supabase
     try {
       setIsLoading(true);
 
@@ -57,7 +57,7 @@ const UploadModal = () => {
 
       const uniqueID = uniqid();
 
-      // Upload Song 
+      // Upload Song file
       const {
         data: songData,
         error: songError,
@@ -74,7 +74,7 @@ const UploadModal = () => {
         return toast.error('Failed song upload.');
       }
 
-      // Upload image
+      // Upload image 
       const {
         data: imageData,
         error: imageError,
